@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-8">
+    <h1 class="text-3xl font-bold mb-6">Monthly Sales Chart</h1>
+    <canvas id="myChart" class="w-full max-w-3xl mx-auto bg-white p-4 rounded shadow"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = {{ labels|safe }};
+    const data = {{ data|safe }};
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Sales',
+                data: data,
+                borderWidth: 2,
+                borderColor: 'rgb(59, 130, 246)',
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                tension: 0.4
+            }]
+        }
+    });
+</script>
+{% endblock %}
